@@ -1,4 +1,4 @@
-project('libkvsns',
+project('libextstore',
 	 'c',
 	 version: '1.2.7',
 	 license: 'LGPL3.0-or-later',
@@ -7,7 +7,6 @@ project('libkvsns',
 
 cc = meson.get_compiler('c')
 
-hiredis_lib = cc.find_library('libhiredis', required: true)
 rados_lib = cc.find_library('librados', required: false)
 motr_lib = cc.find_library('libmotr', required: false)
 dl_lib = cc.find_library('dl', required: true)
@@ -48,17 +47,10 @@ endif
 
 subdir('hash')
 subdir('extstore')
-subdir('kvsal')
-subdir('kvsns')
-subdir('kvsns_shell')
-subdir('kvsns_script')
-subdir('kvsns_attach')
-subdir('kvsns_hsm')
-subdir('tests')
 
 conf_data = configuration_data()
-conf_data.set('LIBKVSNS_BASE_VERSION', meson.project_version())
-conf_data.set('LIBKVSNS_EXTRA_VERSION', '')
+conf_data.set('LIBEXTSTORE_BASE_VERSION', meson.project_version())
+conf_data.set('LIBEXTSTORE_EXTRA_VERSION', '')
 
 distfile = meson.project_name() +  '-' + meson.project_version()
 conf_data.set('CPACK_SOURCE_PACKAGE_FILE_NAME', distfile)
@@ -70,11 +62,11 @@ else
 endif
 
 # Build the spec file
-configure_file(input : 'libkvsns.spec-in.meson',
-               output : 'libkvsns.spec',
+configure_file(input : 'libextstore.spec-in.meson',
+               output : 'libextstore.spec',
                configuration : conf_data)
 
-filespec = meson.source_root() + '/libkvsns.spec'
+filespec = meson.source_root() + '/libextstore.spec'
 distdir = meson.build_root() + '/meson-dist/' + meson.project_name() +  '-' + meson.project_version()
 
 meson.add_dist_script('/usr/bin/cp', filespec, distdir)
