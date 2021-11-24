@@ -79,6 +79,7 @@ Summary: The MOTR based backend for libextstore
 Group: Applications/System
 Requires: %{name} = %{version}-%{release} cortx-motr
 Requires: libiosea-hash = %{version}-%{release}
+Requires: libm0common = %{version}-%{release}
 BuildRequires: libiosea-hash-devel = %{version}-%{release}
 Provides: %{name}-motr = %{version}-%{release}
 

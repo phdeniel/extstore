@@ -9,6 +9,7 @@ cc = meson.get_compiler('c')
 
 rados_lib = cc.find_library('librados', required: false)
 motr_lib = cc.find_library('libmotr', required: false)
+m0common_lib = cc.find_library('libm0common', required: false)
 hashkvs_lib = cc.find_library('libhashkvs', required: false)
 dl_lib = cc.find_library('dl', required: true)
 pthread_lib = cc.find_library('pthread', required: true)
@@ -40,10 +41,6 @@ if motr_lib.found()
     '-fno-common',
     '-fPIC'])
   add_project_arguments(motr_options, language: 'c')
-endif
-
-if motr_lib.found()
-   subdir('motr')
 endif
 
 subdir('extstore')
