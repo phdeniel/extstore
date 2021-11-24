@@ -12,7 +12,7 @@
 #include <iosea/m0common.h>
 
 static struct collection_item *cfg_items;
-#define CONF "/etc/kvsns.d/kvsns.ini"
+#define CONF "/etc/iosea.d/kvsns.ini"
 
 int copy_to_mero(int fd_source, struct m0_uint128 id,
 		 int iolen, size_t filesize)
