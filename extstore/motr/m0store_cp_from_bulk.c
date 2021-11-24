@@ -9,7 +9,7 @@
 #include <errno.h>
 #include <string.h>
 #include <ini_config.h>
-#include "../../motr/m0common.h"
+#include <iosea/m0common.h>
 
 static struct collection_item *cfg_items;
 #define CONF "/etc/kvsns.d/kvsns.ini"

@@ -31,9 +31,9 @@
 
 #include <ini_config.h>
 //#include <hiredis/hiredis.h>
-#include <kvsns/extstore.h>
-#include <kvsns/hashlib.h>
-#include "../../motr/m0common.h"
+#include <iosea/extstore.h>
+#include <iosea/hashlib.h>
+#include <iosea/m0common.h>
 
 #define RC_WRAP(__function, ...) ({\
 	int __rc = __function(__VA_ARGS__);\

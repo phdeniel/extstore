@@ -75,13 +75,7 @@ if (HAVE_MOTR_H AND HAVE_MOTR)
 	set(HAVE_KVS TRUE)
 endif (HAVE_MOTR_H AND HAVE_MOTR)
 
-# Build ancillary libs
 add_subdirectory(extstore)
-add_subdirectory(hash)
-if (HAVE_MOTR AND HAVE_MOTR_H)
-	add_subdirectory(motr)
-endif (HAVE_MOTR AND HAVE_MOTR_H)
-
 
 # CPack / rpmbuild specific stuff
 set(CPACK_PACKAGE_FILE_NAME "libextstore-Source" )

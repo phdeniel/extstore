@@ -41,7 +41,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <ini_config.h>
-#include <kvsns/kvsal.h>
+#include <iosea/kvsal.h>
 
 #define DATALEN VLEN
 

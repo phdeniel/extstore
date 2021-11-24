@@ -30,7 +30,7 @@
  */
 
 #include <sys/time.h>   /* for gettimeofday */
-#include <kvsns/extstore.h>
+#include <iosea/extstore.h>
 
 
 #define RC_WRAP(__function, ...) ({\

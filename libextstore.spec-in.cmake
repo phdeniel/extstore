@@ -78,6 +78,8 @@ This package contains a library for using RADOS as a backed for libextstore
 Summary: The MOTR based backend for libextstore
 Group: Applications/System
 Requires: %{name} = %{version}-%{release} cortx-motr
+Requires: libiosea-hash = %{version}-%{release}
+BuildRequires: libiosea-hash-devel = %{version}-%{release}
 Provides: %{name}-motr = %{version}-%{release}
 
 %description motr
@@ -103,9 +105,9 @@ make %{?_smp_mflags} || make %{?_smp_mflags} || make
 mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_libdir}
 mkdir -p %{buildroot}%{_libdir}/pkgconfig
-mkdir -p %{buildroot}%{_includedir}/kvsns
+mkdir -p %{buildroot}%{_includedir}/iosea
 mkdir -p %{buildroot}%{_sysconfdir}/kvsns.d
-install -m 644 include/kvsns/extstore.h  %{buildroot}%{_includedir}/kvsns
+install -m 644 include/iosea/extstore.h  %{buildroot}%{_includedir}/iosea
 
 install -m 644 extstore/posix_store/libextstore_posix.so %{buildroot}%{_libdir}
 install -m 644 extstore/crud_cache/libextstore_crud_cache.so %{buildroot}%{_libdir}
@@ -115,7 +117,6 @@ install -m 644 extstore/rados/libextstore_rados.so %{buildroot}%{_libdir}
 %endif
 %if %{with motr}
 install -m 644 extstore/motr/libextstore_motr.so %{buildroot}%{_libdir}
-install -m 644 motr/libm0common.so %{buildroot}%{_libdir}
 %endif
 
 install -m 644 libextstore.pc  %{buildroot}%{_libdir}/pkgconfig
@@ -131,7 +132,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(-,root,root)
 %{_libdir}/pkgconfig/libextstore.pc
-%{_includedir}/kvsns/extstore.h
+%{_includedir}/iosea/extstore.h
 
 %files posix
 %{_libdir}/libextstore_posix.so*
@@ -143,7 +144,6 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with motr}
 %files motr
 %{_libdir}/libextstore_motr.so*
-%{_libdir}/libm0common.so*
 %endif
 
 %if %{with rados}

@@ -30,7 +30,7 @@
  */
 
 #include <sys/time.h>   /* for gettimeofday */
-#include <kvsns/extstore.h>
+#include <iosea/extstore.h>
 #include <dlfcn.h>  /* for dlopen and dlsym */
 
 char funcname[MAXNAMLEN];

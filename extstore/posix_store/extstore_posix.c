@@ -31,7 +31,7 @@
 
 #include <sys/time.h> /* for gettimeofday */
 #include <ini_config.h>
-#include <kvsns/extstore.h>
+#include <iosea/extstore.h>
 
 static char store_root[MAXPATHLEN];
 

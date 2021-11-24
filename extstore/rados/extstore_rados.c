@@ -30,7 +30,7 @@
  */
 
 
-#include <kvsns/extstore.h>
+#include <iosea/extstore.h>
 #include <rados/librados.h>
 
 #define RC_WRAP(__function, ...) ({\
