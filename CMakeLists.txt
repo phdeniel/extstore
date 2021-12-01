@@ -15,6 +15,14 @@ set(LIBEXTSTORE_BASE_VERSION ${LIBEXTSTORE_MAJOR_VERSION}.${LIBEXTSTORE_MINOR_VE
 message( STATUS "cmake version ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}" )
 message( STATUS "libextstore version ${LIBEXTSTORE_BASE_VERSION}")
 
+option(EXT_BUILD "Get include deps in upper levels" "")
+
+if(EXT_BUILD)
+  message(STATUS "EXT_BUILD=${EXT_BUILD}")
+  link_directories(${EXT_BUILD}/usr/local/lib)
+  include_directories(AFTER ${EXT_BUILD}/usr/local/include)
+endif(EXT_BUILD)
+
 # Final tuning
 
 include(CheckIncludeFiles)
@@ -136,4 +144,4 @@ endif(NOT WITHIN_IOSEA_NAMESPACE_REPO)
 
 # INSTALL
 install(FILES ${PROJECT_SOURCE_DIR}/libextstore.pc DESTINATION lib)
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/kvsns DESTINATION include)
+install(FILES ${PROJECT_SOURCE_DIR}/include/iosea/extstore.h DESTINATION include/iosea)
