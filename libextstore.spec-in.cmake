@@ -80,7 +80,6 @@ Group: Applications/System
 Requires: %{name} = %{version}-%{release} cortx-motr
 Requires: libiosea-hash = %{version}-%{release}
 Requires: libm0common = %{version}-%{release}
-BuildRequires: libiosea-hash-devel = %{version}-%{release}
 Provides: %{name}-motr = %{version}-%{release}
 
 %description motr
@@ -97,7 +96,7 @@ This package contains tools for libextstore.
 %setup -q -n %{sourcename}
 
 %build
-cmake . 
+cmake -DEXT_BUILD=@EXT_BUILD@ . 
 
 make %{?_smp_mflags} || make %{?_smp_mflags} || make
 
