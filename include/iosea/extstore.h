@@ -43,7 +43,7 @@
 #include <ini_config.h>
 #include <iosea/kvsal.h>
 
-#define DATALEN VLEN
+#define DATALEN 256 
 
 typedef struct extstore_id {
 	unsigned int len;
