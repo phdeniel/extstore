@@ -21,11 +21,6 @@ Provides: %{name} = %{version}-%{release}
 
 %define on_off_switch() %%{?with_%1:ON}%%{!?with_%1:OFF}
 
-# A few explanation about %bcond_with and %bcond_without
-# /!\ be careful: this syntax can be quite messy
-# %bcond_with means you add a "--with" option, default = without this feature
-# %bcond_without adds a"--without" so the feature is enabled by default
-
 @BCOND_RADOS@ rados
 %global use_rados %{on_off_switch rados}
 
@@ -33,14 +28,18 @@ Provides: %{name} = %{version}-%{release}
 %global use_motr %{on_off_switch motr}
 
 %description
-The libextstore is a library that allows of a POSIX namespace built on top of
-a Key-Value Store.
+The extstore is providing an abstraction layer for accessing an object store.
+It is designed to be used by the IO-SEA namespace.
 
 %package devel
 Summary: Development file for the library libextstore
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release} pkgconfig
 Provides: %{name}-devel = %{version}-%{release}
+
+%description devel
+The extstore is providing an abstraction layer for accessing an object store.
+It is designed to be used by the IO-SEA namespace.
 
 %package crud_cache
 Summary: The CRUD cache based backend for libextstore
@@ -86,11 +85,6 @@ Provides: %{name}-motr = %{version}-%{release}
 This package contains libraries for using CORTX-MOTR as a backend for libextstore
 %endif
 
-
-%description devel
-The libextstore is a library that allows of a POSIX namespace built on top of
-a Key-Value Store.
-This package contains tools for libextstore.
 
 %prep
 %setup -q -n %{sourcename}
