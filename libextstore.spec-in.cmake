@@ -85,6 +85,7 @@ Provides: %{name}-motr = %{version}-%{release}
 This package contains libraries for using CORTX-MOTR as a backend for libextstore
 %endif
 
+%global debug_package %{nil} 
 
 %prep
 %setup -q -n %{sourcename}
