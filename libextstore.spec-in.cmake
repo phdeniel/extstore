@@ -91,7 +91,7 @@ This package contains libraries for using CORTX-MOTR as a backend for libextstor
 %setup -q -n %{sourcename}
 
 %build
-cmake -DEXT_BUILD=@EXT_BUILD@ . 
+cmake . 
 
 make %{?_smp_mflags} || make %{?_smp_mflags} || make
 
