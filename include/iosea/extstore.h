@@ -43,11 +43,11 @@
 #include <ini_config.h>
 #include <iosea/kvsal.h>
 
-#define DATALEN 256 
+#define DATALEN 256
 
 typedef struct extstore_id {
 	unsigned int len;
-	char         data[DATALEN];
+	char	 data[DATALEN];
 } extstore_id_t;
 
 int extstore_init(struct collection_item *cfg_items,
@@ -77,7 +77,7 @@ int extstore_attach(extstore_id_t *eid);
 int extstore_getattr(extstore_id_t *eid,
 		     struct stat *stat);
 
-//struct extstore_id eid_null = { .len = 0, .data = NULL}; 
+//struct extstore_id eid_null = { .len = 0, .data = NULL};
 
 /* Pseudo HSM */
 int extstore_archive(extstore_id_t *eid);
