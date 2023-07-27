@@ -48,6 +48,7 @@
 typedef struct extstore_id {
 	unsigned int           len;
 	char                   data[DATALEN];
+	char 		       pathtag[MAXPATHLEN];
 } extstore_id_t;
 
 

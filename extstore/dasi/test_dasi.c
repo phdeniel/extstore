@@ -38,14 +38,13 @@ int main(int argc, char * argv[])
 			    NULL, 
 			    NULL);
 	fprintf(stderr, "extstore_write: rc=%d\n", rc);
-#if 0
+
 	rc = extstore_read(NULL,
 			   0LL,
 			   0,
 			   NULL,
-			   NULL, 
+			   NULL,
 			   NULL);
 	fprintf(stderr, "extstore_read: rc=%d\n", rc);
-#endif
 	return 0;
 }

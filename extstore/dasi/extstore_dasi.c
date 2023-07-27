@@ -115,40 +115,17 @@ int extstore_write(extstore_id_t *eid,
 {
 	dasi_key_t *key;
 	int rc;
-	char sbuf[5];
 	char data[20];
+	char str[MAXPATHLEN];
 
-	rc = dasi_new_key(&key);
-	fprintf(stderr, "dasi_new_key rc=%d\n", rc) ;
+	snprintf(str, MAXPATHLEN, 
+		"type=%s,date=%s,time=%s,version=%s,number=%d,step=%d,level=%d,param=%d", 
+		type, fc_date, fc_time, version, 3, 3, 3, 3);
+        printf("sre=%s\n", str);	
+	
+	rc = dasi_new_key_from_string(&key, str);
+	fprintf(stderr, "dasi_new_query_from_string rc=%d\n", rc);
 
-	rc = dasi_key_set(key, "type", type);
-	fprintf(stderr, "dasi_set_key(type) rc=%d\n", rc) ;
-
-	rc = dasi_key_set(key, "version", version);
-	fprintf(stderr, "dasi_set_key(version) rc=%d\n", rc) ;
-
-	rc = dasi_key_set(key, "date", fc_date);
-	fprintf(stderr, "dasi_set_key(date) rc=%d\n", rc) ;
-
-	rc = dasi_key_set(key, "time", fc_time);
-	fprintf(stderr, "dasi_set_key(time) rc=%d\n", rc) ;
-
-	snprintf(sbuf, sizeof(sbuf), "%d", 3);
-	rc = dasi_key_set(key, "number", sbuf);
-	fprintf(stderr, "dasi_set_key(number) rc=%d\n", rc) ;
-
-	snprintf(sbuf, sizeof(sbuf), "%d", 3);
-	rc = dasi_key_set(key, "step", sbuf);
-	fprintf(stderr, "dasi_set_key(step) rc=%d\n", rc) ;
-
-	snprintf(sbuf, sizeof(sbuf), "%d", 3);
-	rc = dasi_key_set(key, "level", sbuf);
-	fprintf(stderr, "dasi_set_key(level) rc=%d\n", rc) ;
-
-	rc = dasi_key_set(key, "param", param_names[0]);
-	fprintf(stderr, "dasi_set_key(param) rc=%d\n", rc) ;
-
-	snprintf(data, sizeof(data), "%.10lg\n", (double)42); 
 	rc = dasi_archive(dasi,
 			  key, 
 			  (void*)data,
@@ -171,44 +148,21 @@ int extstore_read(extstore_id_t *eid,
 	dasi_query_t *query;
 	dasi_retrieve_t* ret;
 	int rc;
-	char sbuf[5];
+	char str[MAXPATHLEN];
 
-	rc = dasi_new_query(&query);
-	fprintf(stderr, "dasi_new_key rc=%d\n", rc) ;
-
-	rc = dasi_query_append(query, "type", type);
-	fprintf(stderr, "dasi_query_append(type) rc=%d\n", rc) ;
-
-	rc = dasi_query_append(query, "date", fc_date);
-	fprintf(stderr, "dasi_query_append(date) rc=%d\n", rc) ;
-
-	rc = dasi_query_append(query, "time", fc_time);
-	fprintf(stderr, "dasi_query_append(time) rc=%d\n", rc) ;
-
-	rc = dasi_query_append(query, "version", version);
-	fprintf(stderr, "dasi_query_append(version) rc=%d\n", rc) ;
-
-	snprintf(sbuf, sizeof(sbuf), "%d", 3);
-	rc = dasi_query_append(query, "number", sbuf);
-	fprintf(stderr, "dasi_query_append(number) rc=%d\n", rc) ;
-
-	snprintf(sbuf, sizeof(sbuf), "%d", 3);
-	rc = dasi_query_append(query, "step", sbuf);
-	fprintf(stderr, "dasi_query_append(step) rc=%d\n", rc) ;
-
-	snprintf(sbuf, sizeof(sbuf), "%d", 3);
-	rc = dasi_query_append(query, "level", sbuf);
-	fprintf(stderr, "dasi_query_append(level) rc=%d\n", rc) ;
-
-	snprintf(sbuf, sizeof(sbuf), "%d", 3);
-	rc = dasi_query_append(query, "param", sbuf);
-	fprintf(stderr, "dasi_query_append(param) rc=%d\n", rc) ;
+	snprintf(str, MAXPATHLEN, 
+		"type=%s,date=%s,time=%s,version=%s,number=%d,step=%d,level=%d,param=%d", 
+		type, fc_date, fc_time, version, 3, 3, 3, 3);
+        printf("sre=%s\n", str);	
+	
+	rc = dasi_new_query_from_string(&query, str);
+	fprintf(stderr, "dasi_new_query_from_string rc=%d\n", rc);
 
 	rc = dasi_retrieve(dasi, query, &ret);
-	fprintf(stderr, "dasi_retrieve rc=%d\n", rc) ;
+	fprintf(stderr, "dasi_retrieve STR rc=%d\n", rc) ;
 
 	rc = dasi_free_query(query);
-	fprintf(stderr, "dasi_free_query(param) rc=%d\n", rc) ;
+	fprintf(stderr, "dasi_free_query(param) STR rc=%d\n", rc) ;
 
 	return 0;
 }
