@@ -66,6 +66,19 @@ if((NOT HAVE_LIBRADOS) OR (NOT HAVE_RADOS_H))
 endif((NOT HAVE_LIBRADOS) OR (NOT HAVE_RADOS_H))
 
 
+### Check for rados ###
+check_library_exists(
+	dasi
+	dasi_initialise_api
+	""
+	HAVE_DASI
+	)
+	check_include_files("dasi/api/dasi_c.h" HAVE_DASI_H)
+
+	if((NOT HAVE_DASI) OR (NOT HAVE_DASI_H))
+      message(STATUS "Cannot find libdasi")
+endif((NOT HAVE_DASI) OR (NOT HAVE_DASI_H))
+
 ## Set BCOND for spec file management */
 if (HAVE_RADOS_H AND HAVE_LIBRADOS)
 	set(BCOND_RADOS "%bcond_without")

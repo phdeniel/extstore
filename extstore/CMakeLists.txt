@@ -8,4 +8,8 @@ if (HAVE_MOTR AND HAVE_MOTR_H)
 	add_subdirectory(motr)
 endif (HAVE_MOTR AND HAVE_MOTR_H)
 
+if (HAVE_DASI AND HAVE_DASI_H)
+	add_subdirectory(dasi)
+endif (HAVE_DASI AND HAVE_DASI_H)
+
 add_subdirectory(crud_cache)

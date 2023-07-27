@@ -1,0 +1,7 @@
+---
+schema: /home/phil/DEV/iosea-namespace/extstore/extstore/dasi 
+catalogue: toc
+store: file
+spaces:
+ - roots:
+    - path: /home/phil/IO-SEA/DASIBundle-0.2.0-Source/dasi/examples/weather

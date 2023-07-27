@@ -46,12 +46,14 @@
 #define DATALEN 256 
 
 typedef struct extstore_id {
-	unsigned int len;
-	char         data[DATALEN];
+	unsigned int           len;
+	char                   data[DATALEN];
 } extstore_id_t;
+
 
 int extstore_init(struct collection_item *cfg_items,
 		  struct kvsal_ops *kvsalops);
+
 int extstore_create(extstore_id_t eid);
 int extstore_new_objectid(extstore_id_t *eid,
 			  unsigned int seedlen,
