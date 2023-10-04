@@ -15,7 +15,7 @@ int main(int argc, char * argv[])
 	if(argc <= 1)
 		return 0;
 
-	printf("COnfig=%s\n", argv[1]);
+	printf("Config=%s\n", argv[1]);
 
 	rc = config_from_file("libkvsns", argv[1], &cfg_items,
                               INI_STOP_ON_ERROR, &errors);

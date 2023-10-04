@@ -38,11 +38,33 @@
 static char dasi_config[MAXPATHLEN];
 
 static dasi_t *dasi;
-static const char type[] = "ensemble";
-static char fc_date[9]   = "12345678";
-static char fc_time[5]   = "0000";
-static char version[5]   = "0001";
 const char* param_names[4] = {"p", "t", "u", "v"};
+
+static int extstore_pathtag2dasikey(char *pathtag, char *dasikey)
+{
+#define DELTA 2
+	int pos;
+
+	if (!pathtag || !dasikey)
+		return -EINVAL;
+
+	/* turn '/' into ',' */
+	/* start at 1 to avoid double slash at the beginning of the pathtag */
+
+	pos=DELTA;
+	while (pathtag[pos] != '\0') {
+		if (pathtag[pos] == '/')
+			dasikey[pos-DELTA] = ',';
+		else
+			dasikey[pos-DELTA] = pathtag[pos];
+
+		pos += 1;
+  	}
+	dasikey[pos] = '\0';
+
+	printf("---->>>> pathtag=#%s#, dasikey=#%s#\n", pathtag, dasikey);
+	return 0; 
+}
 
 int extstore_attach(extstore_id_t *eid)
 {
@@ -115,27 +137,27 @@ int extstore_write(extstore_id_t *eid,
 {
 	dasi_key_t *key;
 	int rc;
-	char data[20];
-	char str[MAXPATHLEN];
+	char strkey[MAXPATHLEN];
 
-	snprintf(str, MAXPATHLEN, 
-		"type=%s,date=%s,time=%s,version=%s,number=%d,step=%d,level=%d,param=%d", 
-		type, fc_date, fc_time, version, 3, 3, 3, 3);
-        printf("sre=%s\n", str);	
-	
-	rc = dasi_new_key_from_string(&key, str);
-	fprintf(stderr, "dasi_new_query_from_string rc=%d\n", rc);
+	printf("extstore_write: eid->pathtag=%s\n", eid->pathtag); 
+
+	rc = extstore_pathtag2dasikey(eid->pathtag, strkey);
+	if (rc)
+		return rc;
+
+	rc = dasi_new_key_from_string(&key, strkey);
+	fprintf(stderr, "dasi_new_key_from_string rc=%d\n", rc);
 
 	rc = dasi_archive(dasi,
 			  key, 
-			  (void*)data,
-                          (long)strlen(data));
+			  buffer,
+                          (long)buffer_size);
 	fprintf(stderr, "dasi_archive rc=%d\n", rc) ;
 
 	rc = dasi_free_key(key);
 	fprintf(stderr, "dasi_free_query(param) rc=%d\n", rc) ;
 
-	return 0;
+	return (int)buffer_size;
 }
 
 int extstore_read(extstore_id_t *eid,
@@ -148,14 +170,17 @@ int extstore_read(extstore_id_t *eid,
 	dasi_query_t *query;
 	dasi_retrieve_t* ret;
 	int rc;
-	char str[MAXPATHLEN];
+	char strkey[MAXPATHLEN];
 
-	snprintf(str, MAXPATHLEN, 
-		"type=%s,date=%s,time=%s,version=%s,number=%d,step=%d,level=%d,param=%d", 
-		type, fc_date, fc_time, version, 3, 3, 3, 3);
-        printf("sre=%s\n", str);	
-	
-	rc = dasi_new_query_from_string(&query, str);
+	/* KVSNS has been modified to handle the pathtag 
+	 * eid->pathtag should contain this tag */
+	printf("extstore_read: eid->pathtag=%s\n", eid->pathtag); 
+
+	rc = extstore_pathtag2dasikey(eid->pathtag, strkey);
+	if (rc)
+		return rc;
+
+	rc = dasi_new_query_from_string(&query, strkey);
 	fprintf(stderr, "dasi_new_query_from_string rc=%d\n", rc);
 
 	rc = dasi_retrieve(dasi, query, &ret);
