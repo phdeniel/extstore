@@ -48,7 +48,33 @@ Create the tree
     done
 
 The last level is a file
-    /kvsns_cp Makefile kvsns://type=ensemble/date=12345678/time=0000/version=0001/number=3/step=3/level=3/param=3
+    ./kvsns_cp Makefile kvsns://type=ensemble/date=12345678/time=0000/version=0001/number=3/step=3/level=3/param=3
 
+Dans l'autre sens on fait la lecture avec 
+    ./kvsns_cp  kvsns://type=ensemble/date=12345678/time=0000/version=0001/number=3/step=3/level=3/param=3 retour 
+
+
+Voir le contenud es records dans DASI
+-------------------------------------
+
+Set the envvar for easier CLI
+export DASICONF=/home/phil/DEV/iosea-namespace/extstore/extstore/dasi/dasi.yml
+
+    dasi-put --config==$DASICONF type=ensemble,date=12345678,time=0000,version=0001,number=3,step=3,level=3,param=3 toto1 
+    dasi-get --config==$DASICONF type=ensemble,date=12345678,time=0000,version=0001,number=3,step=3,level=3,param=3 toto2
+
+Faire un record et ensuite l'attacher au FS
+-------------------------------------------
+Ecrire toto1
+     dasi-put --config==$DASICONF type=ensemble,date=12345678,time=0000,version=0001,number=3,step=3,level=3,param=6 toto1 
+
+Relire toto1 dans toto52 pour vérifier
+	 dasi-get --config==$DASICONF type=ensemble,date=12345678,time=0000,version=0001,number=3,step=3,level=3,param=6 toto52
+
+Attacher le record DASI, l'object ID a peu d'importance puisque c'est le chemin qui compte
+    ./kvsns_attach -p /type=ensemble/date=12345678/time=0000/version=0001/number=3/step=3/level=3/param=6  -o 12345678
+
+Ensuite je peux relire le truc avec kvsns_cp
+    ./kvsns_cp kvsns://type=ensemble/date=12345678/time=0000/version=0001/number=3/step=3/level=3/param=6  toto56
 
 
